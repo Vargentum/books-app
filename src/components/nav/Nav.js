@@ -1,7 +1,7 @@
 import React, {PropTypes} from 'react';
-import Nav from './nav/Nav'
+import NavLink from './NavLink'
 
-class App extends React.Component {
+class Nav extends React.Component {
   static propTypes = {}
 
   // state = {}
@@ -14,12 +14,11 @@ class App extends React.Component {
     } = this.props
 
     return (
-      <div>
-        <Nav />
-        {this.props.children}
-      </div>
+      <nav>
+        <NavLink to="/books">Books</NavLink>
+      </nav>
     )
   }
 }
 
-export default App;
+export default Nav;

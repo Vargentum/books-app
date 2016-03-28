@@ -1,7 +1,6 @@
 import React, {PropTypes} from 'react';
-import Nav from './nav/Nav'
 
-class App extends React.Component {
+class Book extends React.Component {
   static propTypes = {}
 
   // state = {}
@@ -15,11 +14,11 @@ class App extends React.Component {
 
     return (
       <div>
-        <Nav />
+        Book
         {this.props.children}
       </div>
     )
   }
 }
 
-export default App;
+export default Book;
