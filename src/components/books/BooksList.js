@@ -1,9 +1,7 @@
 import React, {Component, PropTypes} from 'react';
-import Book from './Book'
-import BooksStore from '../../stores/BooksStore'
+import BookPreview from './BookPreview'
+import {booksStore} from '../../stores'
 import {loadBooksList} from '../../actions/booksActions'
-
-const booksStore = new BooksStore()
 
 class BooksList extends Component {
   static propTypes = {}
@@ -17,7 +15,7 @@ class BooksList extends Component {
   }
 
   componentDidMount() {
-    loadBooksList()
+    if (!booksStore.loading && !booksStore.loaded) loadBooksList()
   }
 
   componentWillUnmount() {
@@ -38,11 +36,11 @@ class BooksList extends Component {
 
     if (!books.length) return null
 
-    const booksList = books.map(b => <li key={b.ID}><Book {...b} /></li>)
+    const booksList = books.map(b => <li key={b.ID}><BookPreview {...b} /></li>)
 
     return (
       <div>
-        BooksList test
+        Books List
         {booksList}
       </div>
     )

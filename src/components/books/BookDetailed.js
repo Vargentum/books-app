@@ -6,6 +6,10 @@ class Book extends React.Component {
   // state = {}
   // methodName = () =>
   //   <div></div>
+
+  componentWillMount() {
+    
+  }
     
   render() {
     const {
@@ -15,7 +19,6 @@ class Book extends React.Component {
     return (
       <div>
         Book
-        {this.props.children}
       </div>
     )
   }

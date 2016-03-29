@@ -1,6 +1,5 @@
 import dispatcher from '../utils/dispatcher'
 import {EventEmitter} from 'events'
-import loadBooksList from '../actions/booksActions'
 
 export default class BooksStore extends EventEmitter {
   constructor() {
@@ -10,10 +9,25 @@ export default class BooksStore extends EventEmitter {
 
     dispatcher.register(({type, data}) => {
       switch (type) {
-        case "BOOKS_LOADED":
+        case "BOOKS_LIST_LOADING_START":
+          this.loading = true
+          break;
+
+        case "BOOKS_LIST_LOADING_SUCCESS":
           this.__books = this.__books.concat(data.Books)
-          this.emit("UPD")
+          this.loading = false
+          this.loaded = true
+          break;
+
+        case "BOOK_DETAILS_LOADING_SUCCESS":
+          break;
+
+
+        default:
+          return null
       }
+
+      this.emit("UPD")
     })
   }
 
