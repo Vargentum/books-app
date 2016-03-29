@@ -23,7 +23,7 @@ const asyncRequest = (url, type) => {
         data: response
       })
     },
-    error => {
+    (error) => {
       dispatcher.dispatch({
         type: type + "_LOADING_ERROR",
         data: error
@@ -34,5 +34,4 @@ const asyncRequest = (url, type) => {
 
 
 export const loadBooksList = (type) => asyncRequest(`/search/javascript`, "BOOKS_LIST")
-
 export const getBookByID = (id) => asyncRequest(`/book/${id}`, 'BOOK_DETAILS')

@@ -1,10 +1,16 @@
 import React, {PropTypes} from 'react';
 import {Link} from 'react-router'
+import {getBookByID} from '../../actions/booksActions'
+import {booksDetailedStore} from '../../stores'
+
 
 class BookPreview extends React.Component {
   static propTypes = {}
 
-  componentWIll
+  handleLinkClick = (id) => (ev) => {
+    ev.preventDefault()
+    getBookByID(id)
+  }
 
   render() {
     const {
@@ -14,7 +20,7 @@ class BookPreview extends React.Component {
 
     return (
       <article>
-        <h2><Link to={`/book/${ID}`}>{Title}</Link></h2>
+        <h2 onClick={this.handleLinkClick(ID)} ><Link to={`/book/${ID}`}>{Title}</Link></h2>
       </article>
     )
   }

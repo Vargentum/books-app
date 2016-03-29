@@ -19,10 +19,6 @@ export default class BooksStore extends EventEmitter {
           this.loaded = true
           break;
 
-        case "BOOK_DETAILS_LOADING_SUCCESS":
-          break;
-
-
         default:
           return null
       }

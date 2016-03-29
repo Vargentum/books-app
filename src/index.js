@@ -4,7 +4,6 @@ import {render} from 'react-dom'
 import App from "./components/App"
 import BooksList from './components/books/BooksList'
 import BookDetailed from './components/books/BookDetailed'
-import {getBookByID, loadBooksList} from './actions/booksActions'
 
 render((
     <Router history={browserHistory}>
@@ -13,8 +12,7 @@ render((
                component={BooksList} />
 
         <Route path="/book/:id" 
-               component={BookDetailed}
-               onEnter={getBookByID} />
+               component={BookDetailed} />
       </Route>
     </Router>
 

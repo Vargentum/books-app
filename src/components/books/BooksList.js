@@ -7,7 +7,7 @@ class BooksList extends Component {
   static propTypes = {}
 
   state = {
-    books: booksStore.getAll()        
+    books: booksStore.getAll()
   }
 
   componentWillMount() {
@@ -24,11 +24,11 @@ class BooksList extends Component {
 
   handleLoad = () => {
     this.setState({
-      books: booksStore.getAll() 
+      books: booksStore.getAll()
     });
   }
 
-    
+
   render() {
     const {
       books
