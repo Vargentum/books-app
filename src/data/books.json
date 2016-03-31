@@ -1,0 +1,52 @@
+[
+   {
+      "id":1,
+      "name":"Learning JavaScript Design Patterns",
+      "authors":[
+         1
+      ],
+      "genres":[
+         1,
+         2,
+         4
+      ],
+      "description":"If you want to write beautiful, structured, and maintainable JavaScript code, this guide shows you how to apply both classical and modern design patterns to the language. The patterns in this book provide reusable code solutions to common problems in software design, and give you a shared vocabulary for describing solutions to others. You'll explore several popular design patterns in plain JavaScript as well as jQuery and other abstracted libraries. If you're familiar with concepts such as closures and prototypal inheritance, you'll be able to determine why some patterns may be more suitable for your projects than others."
+   },
+   {
+      "id":2,
+      "name":"JavaScript: The Good Parts",
+      "authors":[
+         3
+      ],
+      "genres":[
+         1,
+         2
+      ],
+      "description":"Most programming languages contain good and bad parts, but JavaScript has more than its share of the bad, having been developed and released in a hurry before it could be refined. This authoritative book scrapes away these bad features to reveal a subset of JavaScript that's more reliable, readable, and maintainable than the language as a whole-a subset you can use to create truly extensible and efficient code."
+   },
+   {
+      "id":3,
+      "name":"Object-Oriented JavaScript",
+      "authors":[
+         2
+      ],
+      "genres":[
+         1,
+         2,
+         3
+      ],
+      "description":"This book treats JavaScript as a serious object-oriented language, showing you how to build robust, maintainable, and powerful libraries and applications. Along the way, we cover many of the recent innovations such as AJAX, JSON, and interesting design and coding patterns. After reading this book, you'll be prepared to ace your JavaScript job interview and even impress with some bits that the interviewer maybe didn't know. You should read this book if you want to be able to take your JavaScript skills to a new level of sophistication. Create scalable and reusable high-quality JavaScript applications and libraries using the concepts of object-oriented programming."
+   },
+   {
+      "id":4,
+      "name":"JavaScript for PHP Developers",
+      "authors":[
+         2
+      ],
+      "genres":[
+         1,
+         5
+      ],
+      "description":"If you want to significantly expand your web development skills beyond PHP, this practical, hands-on book teaches you ECMAScript - the core JavaScript language - from the ground up. You'll discover some similarities between JavaScript and PHP, such as conditions and loops, but the primary focus is on JavaScript's unique object creation, classes, prototypes, and inheritance. JavaScript knowledge is essential for working with today's Web, whether you're building applications for the client, the server, or for mobile use - and your PHP experience gives you a head start. This book will help you become fluent with JavaScript quickly, and then serve as a handy reference once you start coding."
+   }
+]
