@@ -38,7 +38,7 @@ export default class ItemsStore extends ReduceStore {
   }
 
   getById(id) {
-    return Object.assign({}, this._state.items[id])
+    return this._state.items.filter(i => i.id == id)[0]
   }
 
   isReadyToLoad() {

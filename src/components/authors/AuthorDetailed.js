@@ -1,8 +1,8 @@
 import React, {PropTypes} from 'react';
 import {Container} from 'flux/utils'
-import {booksStore} from '../../stores'
+import {authorsStore} from '../../stores'
+import {loadAuthorsList} from '../../actions'
 import {Link} from 'react-router'
-import {loadBooksList} from '../../actions'
 
 class BookDetailedUI extends React.Component {
   static propTypes = {}
@@ -11,20 +11,18 @@ class BookDetailedUI extends React.Component {
     const {
       id,
       name,
-      description,
-      authors,
-      genres,
+      biography,
+      books
     } = this.props
 
     return (
       <article>
         <header>
           <h2>{name}</h2>
-          <h5>Authors: {authors}</h5>
-          <h5>Genres: {genres}</h5>
+          <h5>Books: {books}</h5>
         </header>
         <div>
-          {description}
+          {biography}
         </div>
       </article>
     )
@@ -37,15 +35,15 @@ class BookDetailed extends React.Component {
   static propTypes = {}
 
   static getStores() {
-    return [booksStore]
+    return [authorsStore]
   }
 
   static calculateState(prevState, props) {
-    return booksStore.getById(props.params.id)
+    return authorsStore.getById(props.params.id)
   }
 
   componentWillMount() {
-    this._token = booksStore.addListener(this.handleStoreUpdate)
+    this._token = authorsStore.addListener(this.handleStoreUpdate)
   }
 
   componentWillUnmount() {
@@ -53,11 +51,11 @@ class BookDetailed extends React.Component {
   }
 
   componentDidMount() {
-    if (booksStore.isReadyToLoad()) loadBooksList()
+    if (authorsStore.isReadyToLoad()) loadAuthorsList()
   }
 
   handleStoreUpdate = () => {
-    this.setState(booksStore.getById(this.props.params.id))
+    this.setState(authorsStore.getById(this.props.params.id))
   }
 
 
@@ -65,7 +63,7 @@ class BookDetailed extends React.Component {
 
     return (
       <div>
-        <Link to="/books">Back</Link>
+        <Link to="/authors">Back</Link>
         <BookDetailedUI {...this.state} />
       </div>
     )

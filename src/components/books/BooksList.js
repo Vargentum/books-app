@@ -10,11 +10,10 @@ class BooksListUI extends React.Component {
 
   render() {
     const {items} = this.props
-    const booksList = items.map(b => <li key={b.id}><BookPreview {...b} /></li>)
-    return items && items.length ? <ul>{booksList}</ul> : null
+    const itemsList = items.map(b => <li key={b.id}><BookPreview {...b} /></li>)
+    return items && items.length ? <ul>{itemsList}</ul> : null
   }
 }
-
 
 
 class BooksList extends Component {

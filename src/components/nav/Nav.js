@@ -16,6 +16,7 @@ class Nav extends React.Component {
     return (
       <nav>
         <NavLink to="/books">Books</NavLink>
+        <NavLink to="/authors">Authors</NavLink>
       </nav>
     )
   }
