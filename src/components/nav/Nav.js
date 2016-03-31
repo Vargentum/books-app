@@ -4,10 +4,6 @@ import NavLink from './NavLink'
 class Nav extends React.Component {
   static propTypes = {}
 
-  // state = {}
-  // methodName = () =>
-  //   <div></div>
-    
   render() {
     const {
 

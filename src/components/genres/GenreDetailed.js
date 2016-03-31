@@ -20,7 +20,7 @@ class GenresDetailedUI extends React.Component {
           <h2>{name}</h2>
           <h5>Books: 
               <ItemsListUI items={books}
-                           linkType='book'/>
+                           linkType='books'/>
           </h5>
         </header>
       </article>

@@ -22,7 +22,7 @@ class AuthorDetailedUI extends React.Component {
           <h2>{name}</h2>
           <h5>Books: 
             <ItemsListUI items={books}
-                         linkType='book'/>
+                         linkType='books'/>
           </h5>
         </header>
         <div>
@@ -40,7 +40,6 @@ class AuthorDetailed extends ItemDetailed {
   handleStoreUpdate = () => {
     if (!authorsStore.isCached()) return null
     const author = authorsStore.getById(this.props.params.id)
-    console.log(author.getRelated('books', booksStore))
     this.setState(Object.assign({},
       author,
       {

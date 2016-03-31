@@ -8,7 +8,8 @@ class GenresList extends React.Component {
   render() {
     return (
       <ItemsList store={genresStore}
-                 linkType="genre" />
+                 linkType="genres"
+                 children={this.props.children} />
     )
   }
 }

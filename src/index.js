@@ -10,29 +10,20 @@ import GenresList from './components/genres/GenresList'
 import GenresDetailed from './components/genres/GenreDetailed'
 
 render((
-    <Router history={browserHistory}>
-      <Route path="/" component={App}>
-        <Route path="/books" 
-               component={BooksList} />
-
-        <Route path="/book/:id" 
-               component={BookDetailed} />
-        
-        <Route path="/authors" 
-               component={AuthorsList} />
-
-        <Route path="/author/:id" 
-               component={AuthorDetailed} />
-
-        <Route path="/genres" 
-               component={GenresList} />
-
-        <Route path="/genre/:id" 
-               component={GenresDetailed} />
-
+  <Router history={browserHistory}>
+    <Route path="/" component={App}>
+      <Route path="books" component={BooksList}>
+        <Route path=":id" component={BookDetailed} />
       </Route>
-    </Router>
+      
+      <Route path="authors" component={AuthorsList}>
+        <Route path=":id" component={AuthorDetailed} />
+      </Route>
+      
+      <Route path="genres" component={GenresList}>
+        <Route path=":id" component={GenresDetailed} />
+      </Route>
+    </Route>
+  </Router>
 
-  ), document.getElementById('container'))
-
-      // <Route path="/authors" component={AuthorsList}>Authors</Route>
+), document.getElementById('container'))

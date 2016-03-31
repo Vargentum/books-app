@@ -67,8 +67,9 @@ class ItemsList extends Component {
   }
 
   render() {
-    return (<ItemsListUI linkType={this.props.linkType} 
-                        {...this.state} />)
+    return this.props.children || 
+      <ItemsListUI linkType={this.props.linkType} 
+                   {...this.state} />
   }
 }
 

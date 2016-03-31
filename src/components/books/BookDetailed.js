@@ -24,12 +24,12 @@ class BookDetailedUI extends React.Component {
           <h2>{name}</h2>
           <h5>Authors: 
               <ItemsListUI items={authors}
-                           linkType='author'/>
+                           linkType='authors'/>
           </h5>
           <h5>
             Genres:
             <ItemsListUI items={genres}
-                         linkType='genre'/></h5>
+                         linkType='genres'/></h5>
         </header>
         <div>
           {description}
