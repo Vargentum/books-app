@@ -1,8 +1,9 @@
 import React, {PropTypes} from 'react';
 import {Container} from 'flux/utils'
-import {booksStore} from '../../stores'
+import {booksStore, authorsStore} from '../../stores'
 import {Link} from 'react-router'
-import {loadBooksList} from '../../actions'
+import AuthorPreview from '../authors/AuthorPreview'
+import {AuthorsListUI} from '../authors/AuthorsList'
 
 class BookDetailedUI extends React.Component {
   static propTypes = {}
@@ -16,11 +17,14 @@ class BookDetailedUI extends React.Component {
       genres,
     } = this.props
 
+
     return (
       <article>
         <header>
           <h2>{name}</h2>
-          <h5>Authors: {authors}</h5>
+          <h5>Authors: 
+              <AuthorsListUI items={authors}/>
+          </h5>
           <h5>Genres: {genres}</h5>
         </header>
         <div>
@@ -37,36 +41,46 @@ class BookDetailed extends React.Component {
   static propTypes = {}
 
   static getStores() {
-    return [booksStore]
+    return [booksStore, authorsStore]
   }
 
   static calculateState(prevState, props) {
-    return booksStore.getById(props.params.id)
+    return {}
   }
 
   componentWillMount() {
-    this._token = booksStore.addListener(this.handleStoreUpdate)
+    this._tokens = [
+      booksStore.addListener(this.handleStoreUpdate),
+      authorsStore.addListener(this.handleStoreUpdate)
+    ]
   }
 
   componentWillUnmount() {
-    this._token.remove()
+    this._tokens.map(t => t.remove())
   }
-
+  
   componentDidMount() {
-    if (booksStore.isReadyToLoad()) loadBooksList()
+    this.handleStoreUpdate()
   }
 
   handleStoreUpdate = () => {
-    this.setState(booksStore.getById(this.props.params.id))
+    if (!booksStore.isCached()) return null
+    const book = booksStore.getById(this.props.params.id)
+    this.setState(Object.assign({},
+      book,
+      {authors: book.getRelated('authors', authorsStore)}
+    ))
   }
 
-
   render() {
-
     return (
       <div>
         <Link to="/books">Back</Link>
-        <BookDetailedUI {...this.state} />
+        {booksStore.isntLoaded() ?
+          "Loading..."
+          :
+          <BookDetailedUI {...this.state} />  
+        }
       </div>
     )
   }

@@ -1,7 +1,6 @@
 import React, {PropTypes} from 'react';
 import {Container} from 'flux/utils'
 import {authorsStore} from '../../stores'
-import {loadAuthorsList} from '../../actions'
 import {Link} from 'react-router'
 
 class BookDetailedUI extends React.Component {
@@ -48,10 +47,6 @@ class BookDetailed extends React.Component {
 
   componentWillUnmount() {
     this._token.remove()
-  }
-
-  componentDidMount() {
-    if (authorsStore.isReadyToLoad()) loadAuthorsList()
   }
 
   handleStoreUpdate = () => {

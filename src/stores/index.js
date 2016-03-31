@@ -11,6 +11,8 @@ Object.assign(stores, {
   authors: new ItemsStore(authors, stores, dispatcher)
 })
 
+window.stores = stores //for debugging
+
 export const booksStore = stores.books
 export const genresStore = stores.genres
 export const authorsStore = stores.authors

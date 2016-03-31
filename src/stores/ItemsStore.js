@@ -1,6 +1,7 @@
 import React, {PropTypes} from 'react';
 import {ReduceStore} from 'flux/utils'
 import {LOADING} from '../utils/constants'
+import DataModel from '../utils/dataModel'
 
 const {start: LST, success: LSC} = LOADING
 
@@ -27,7 +28,7 @@ export default class ItemsStore extends ReduceStore {
 
       case this._itemType + LSC:
         return Object.assign({}, state, {
-          items: data,
+          items: data.map(d => new DataModel(d)),
           status: LSC,
           dataLoaded: true
         })
@@ -41,7 +42,11 @@ export default class ItemsStore extends ReduceStore {
     return this._state.items.filter(i => i.id == id)[0]
   }
 
-  isReadyToLoad() {
+  isntLoaded() {
     return !(this._state.status === LSC || this._state.dataLoaded)
+  }
+  
+  isCached() {
+    return this._state.dataLoaded
   }
 }

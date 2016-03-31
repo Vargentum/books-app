@@ -1,7 +1,6 @@
 import React, {Component, PropTypes} from 'react';
 import {Container} from 'flux/utils'
 import {booksStore} from '../../stores'
-import {loadBooksList} from '../../actions'
 import BookPreview from './BookPreview'
 
 
@@ -31,10 +30,6 @@ class BooksList extends Component {
 
   componentWillUnmount() {
     this._token.remove()
-  }
-
-  componentDidMount() {
-    if (booksStore.isReadyToLoad()) loadBooksList()
   }
 
   handleLoad = () => {

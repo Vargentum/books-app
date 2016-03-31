@@ -1,17 +1,23 @@
 import React, {Component, PropTypes} from 'react';
 import {Container} from 'flux/utils'
 import {authorsStore} from '../../stores'
-import {loadAuthorsList} from '../../actions'
 import AuthorPreview from './AuthorPreview'
 
 
-class AuthorsListUI extends React.Component {
+export class AuthorsListUI extends React.Component {
   static propTypes = {}
+
+  isntLoaded = (items) => items.some(x => !x)
 
   render() {
     const {items} = this.props
-    const itemsList = items.map(b => <li key={b.id}><AuthorPreview {...b} /></li>)
-    return items && items.length ? <ul>{itemsList}</ul> : null
+    if (!items || this.isntLoaded(items)) return <div>Loading...</div>
+    
+    const itemsList = items.map(b => {
+      console.log(b.id, 'id----')
+      return <li key={b.id}><AuthorPreview {...b} /></li>
+    })
+    return <ul>{itemsList}</ul>
   }
 }
 
@@ -32,10 +38,6 @@ class AuthorsList extends Component {
 
   componentWillUnmount() {
     this._token.remove()
-  }
-
-  componentDidMount() {
-    if (authorsStore.isReadyToLoad()) loadAuthorsList()
   }
 
   handleLoad = () => {
