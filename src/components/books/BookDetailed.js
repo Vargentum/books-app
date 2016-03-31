@@ -1,31 +1,29 @@
 import React, {PropTypes} from 'react';
 import {Container} from 'flux/utils'
-import {booksDetailedStore} from '../../stores'
+import {booksStore} from '../../stores'
 import {Link} from 'react-router'
 
-class BookDetailedDump extends React.Component {
+class BookDetailedUI extends React.Component {
   static propTypes = {}
 
   render() {
     const {
-      Author,
-      ID,
-      Title,
-      SubTitle,
-      Description,
-      Publisher,
-      Error
+      id,
+      name,
+      description,
+      authors,
+      genres,
     } = this.props
 
     return (
       <article>
         <header>
-          <h2>{Title}</h2>
-          <h4>{SubTitle}</h4>
-          <p>Publisher: {Publisher}</p>
+          <h2>{name}</h2>
+          <h5>Authors: {authors}</h5>
+          <h5>Genres: {genres}</h5>
         </header>
         <div>
-          {Description}
+          {description}
         </div>
       </article>
     )
@@ -38,15 +36,15 @@ class BookDetailed extends React.Component {
   static propTypes = {}
 
   static getStores() {
-    return [booksDetailedStore]
+    return [booksStore]
   }
 
   static calculateState(prevState, props) {
-    return booksDetailedStore.getState()
+    return booksStore.getById(props.params.id)
   }
 
   componentWillMount() {
-    this._token = booksDetailedStore.addListener(this.handleStoreUpdate)
+    this._token = booksStore.addListener(this.handleStoreUpdate)
   }
 
   componentWillUnmount() {
@@ -54,9 +52,7 @@ class BookDetailed extends React.Component {
   }
 
   handleStoreUpdate = () => {
-    const status = booksDetailedStore.at('status')
-    if (status !== 'success') return
-    this.setState(booksDetailedStore.at(this.props.params.id))
+    this.setState(booksStore.getById(this.props.params.id))
   }
 
 
@@ -65,7 +61,7 @@ class BookDetailed extends React.Component {
     return (
       <div>
         <Link to="/books">Back</Link>
-        <BookDetailedDump {...this.state} />
+        <BookDetailedUI {...this.state} />
       </div>
     )
   }

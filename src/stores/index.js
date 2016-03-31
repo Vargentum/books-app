@@ -1,7 +1,16 @@
-import BooksStore from './BooksStore'
-import BooksDetailedStore from './BooksDetailedStore'
+import ItemsStore from './ItemsStore'
 import dispatcher from '../utils/dispatcher'
+import {ITEM_TYPES} from '../utils/constants'
 
+const {authors, genres, books} = ITEM_TYPES
+const stores = {}
 
-export const booksStore = new BooksStore()
-export const booksDetailedStore = new BooksDetailedStore(dispatcher)
+Object.assign(stores, {
+  books: new ItemsStore(books, stores, dispatcher),
+  genres: new ItemsStore(genres, stores, dispatcher),
+  authors: new ItemsStore(authors, stores, dispatcher)
+})
+
+export const booksStore = stores.books
+export const genresStore = stores.genres
+export const authorsStore = stores.authors

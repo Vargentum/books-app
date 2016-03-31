@@ -1,42 +1,44 @@
-import dispatcher from '../utils/dispatcher'
-import {EventEmitter} from 'events'
+// import React, {PropTypes} from 'react';
+// import ItemsStore from './ItemsStore'
+// import update from 'react-addons-update'
 
-export default class BooksStore extends EventEmitter {
-  constructor() {
-    super()
+// export default class BooksStore extends ReduceStore {
+//   constructor(...props) {
+//     super(...props)
+//   }
 
-    this.__books = []
+//   getInitialState() {
+//     return {
+//       items: [],
+//       dataLoaded: false
+//     }
+//   }
 
-    dispatcher.register(({type, data}) => {
-      switch (type) {
-        case "BOOKS_LIST_LOADING_START":
-          this.loading = true
-          break;
+//   reduce(state, {type, data}) {
+//     switch (type) {
+//       case "BOOKS_LOADING_START":
+//         return Object.assign({}, state, {
+//           status: 'loading'
+//         })
 
-        case "BOOKS_LIST_LOADING_SUCCESS":
-          this.__books = this.__books.concat(data.Books)
-          this.loading = false
-          this.loaded = true
-          break;
+//       case "BOOKS_LOADING_SUCCESS":
+//         return Object.assign({}, state, {
+//           items: data,
+//           status: 'success',
+//           dataLoaded: true
+//         })
 
-        default:
-          return null
-      }
+//       default:
+//         return null
+//     }
+//   }
 
-      this.emit("UPD")
-    })
-  }
+//   getById(id) {
+//     return Object.assign({}, this._state.items[id])
+//   }
 
-  addLoadListener = (cb) => {
-    this.on("UPD", cb)
-  }
-
-  removeLoadListener = () => {
-    this.removeAllListeners("UPD")
-  }
-
-  getAll() {
-    return this.__books.slice()
-  }
-}
+//   isReadyToLoad() {
+//     return !(this._state.status === 'loading' || this._state.dataLoaded)
+//   }
+// }
 

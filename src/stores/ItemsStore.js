@@ -1,10 +1,14 @@
 import React, {PropTypes} from 'react';
-import {Store, ReduceStore, MapStore} from 'flux/utils'
-import update from 'react-addons-update'
+import {ReduceStore} from 'flux/utils'
+import {LOADING} from '../utils/constants'
 
-export default class BooksStore extends ReduceStore {
-  constructor(...props) {
+const {start: LST, success: LSC} = LOADING
+
+export default class ItemsStore extends ReduceStore {
+  constructor(itemType, stores, ...props) {
     super(...props)
+    this._itemType = itemType
+    this._stores = stores
   }
 
   getInitialState() {
@@ -16,20 +20,20 @@ export default class BooksStore extends ReduceStore {
 
   reduce(state, {type, data}) {
     switch (type) {
-      case "BOOKS_LOADING_START":
+      case this._itemType + LST:
         return Object.assign({}, state, {
-          status: 'loading'
+          status: LST
         })
 
-      case "BOOKS_LOADING_SUCCESS":
+      case this._itemType + LSC:
         return Object.assign({}, state, {
           items: data,
-          status: 'success',
+          status: LSC,
           dataLoaded: true
         })
 
       default:
-        return null
+        return state
     }
   }
 
@@ -38,7 +42,6 @@ export default class BooksStore extends ReduceStore {
   }
 
   isReadyToLoad() {
-    return !(this._state.status === 'loading' || this._state.dataLoaded)
+    return !(this._state.status === LSC || this._state.dataLoaded)
   }
 }
-
