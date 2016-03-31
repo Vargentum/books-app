@@ -3,6 +3,7 @@ import {Container} from 'flux/utils'
 import {booksStore, authorsStore, genresStore} from '../../stores'
 import {Link} from 'react-router'
 import {ItemsListUI} from '../ItemsList'
+import {BackButton} from '../../utils/ui'
 
 class GenresDetailedUI extends React.Component {
   static propTypes = {}
@@ -17,12 +18,13 @@ class GenresDetailedUI extends React.Component {
     return (
       <article>
         <header>
-          <h2>{name}</h2>
-          <h5>Books: 
-              <ItemsListUI items={books}
-                           linkType='books'/>
-          </h5>
+          <h2>Genre: {name}</h2>
         </header>
+        <footer>
+          <h5>Books: </h5>
+          <ItemsListUI items={books}
+                       linkType='books'/>
+        </footer>
       </article>
     )
   }
@@ -71,7 +73,7 @@ class GenresDetailed extends React.Component {
   render() {
     return (
       <div>
-        <Link to="/books">Back</Link>
+        <BackButton to="/genres" />        
         {genresStore.isntLoaded() ?
           "Loading..."
           :

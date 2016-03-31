@@ -2,7 +2,7 @@ import React, {Component, PropTypes} from 'react';
 import {Container} from 'flux/utils'
 import {Link} from 'react-router'
 import {booksStore, authorsStore, genresStore} from '../stores'
-
+import {ListGroup, ListGroupItem} from 'react-bootstrap'
 
 export class ItemPreview extends React.Component {
   static propTypes = {}
@@ -32,14 +32,14 @@ export class ItemsListUI extends React.Component {
 
     const itemsList = items.map(item => {
       return (
-        <li key={item.id}>
+        <ListGroupItem key={item.id}>
           <ItemPreview
             linkType={linkType}
             {...item} />
-        </li>
+        </ListGroupItem>
       )
     })
-    return <ul>{itemsList}</ul>
+    return <ListGroup>{itemsList}</ListGroup>
   }
 }
 

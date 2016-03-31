@@ -4,6 +4,7 @@ import {booksStore, authorsStore, genresStore} from '../../stores'
 import {Link} from 'react-router'
 import {ItemsListUI} from '../ItemsList'
 import ItemDetailed from '../ItemDetailed'
+import {BackButton} from '../../utils/ui'
 
 class BookDetailedUI extends React.Component {
   static propTypes = {}
@@ -22,18 +23,18 @@ class BookDetailedUI extends React.Component {
       <article>
         <header>
           <h2>{name}</h2>
-          <h5>Authors: 
-              <ItemsListUI items={authors}
-                           linkType='authors'/>
-          </h5>
-          <h5>
-            Genres:
-            <ItemsListUI items={genres}
-                         linkType='genres'/></h5>
         </header>
         <div>
           {description}
         </div>
+        <footer>
+          <h5>Authors: </h5>
+          <ItemsListUI items={authors}
+                       linkType='authors'/>
+          <h5>Genres:</h5>
+          <ItemsListUI items={genres}
+                       linkType='genres'/>
+        </footer>
       </article>
     )
   }
@@ -58,7 +59,7 @@ class BookDetailed extends ItemDetailed {
   render() {
     return (
       <div>
-        <Link to="/books">Back</Link>
+        <BackButton to="/books"/>
         {booksStore.isntLoaded() ?
           "Loading..."
           :

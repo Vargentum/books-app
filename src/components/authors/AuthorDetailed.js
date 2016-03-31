@@ -1,9 +1,9 @@
 import React, {PropTypes} from 'react';
 import {Container} from 'flux/utils'
 import {authorsStore, booksStore} from '../../stores'
-import {Link} from 'react-router'
 import {ItemsListUI} from '../ItemsList'
 import ItemDetailed from '../ItemDetailed'
+import {BackButton} from '../../utils/ui'
 
 class AuthorDetailedUI extends React.Component {
   static propTypes = {}
@@ -20,14 +20,15 @@ class AuthorDetailedUI extends React.Component {
       <article>
         <header>
           <h2>{name}</h2>
-          <h5>Books: 
-            <ItemsListUI items={books}
-                         linkType='books'/>
-          </h5>
         </header>
         <div>
           {biography}
         </div>
+        <footer>
+          <h5>Books: </h5>
+          <ItemsListUI items={books}
+                       linkType='books'/>
+        </footer>
       </article>
     )
   }
@@ -51,8 +52,12 @@ class AuthorDetailed extends ItemDetailed {
   render() {
     return (
       <div>
-        <Link to="/authors">Back</Link>
-        <AuthorDetailedUI {...this.state} />
+        <BackButton to="/authors"/>
+        {authorsStore.isntLoaded() ?
+          "Loading..."
+          :
+          <AuthorDetailedUI {...this.state} />
+        }
       </div>
     )
   }

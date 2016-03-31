@@ -1,7 +1,8 @@
 import React, {PropTypes} from 'react';
-import Nav from './nav/Nav'
+import AppNav from './nav/AppNav'
 import {booksStore, authorsStore, genresStore} from '../stores'
 import {loadBooksList, loadAuthorsList, loadGenresList} from '../actions'
+import {Grid, Row, Col} from 'react-bootstrap'
 
 const STORES = [
   {
@@ -33,10 +34,14 @@ class App extends React.Component {
     
   render() {
     return (
-      <div>
-        <Nav />
-        {this.props.children}
-      </div>
+      <Grid fluid={true}>
+        <AppNav />
+        <Row>
+          <Col xs={12}>
+            {this.props.children}
+          </Col>
+        </Row>
+      </Grid>
     )
   }
 }
