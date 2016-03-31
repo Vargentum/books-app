@@ -1,44 +1,61 @@
 import React, {Component, PropTypes} from 'react';
 import {Container} from 'flux/utils'
 import {booksStore} from '../../stores'
-import BookPreview from './BookPreview'
+import ItemsList from '../ItemsList'
 
-
-class BooksListUI extends React.Component {
-  static propTypes = {}
-
+class BooksList extends React.Component {
+    
   render() {
-    const {items} = this.props
-    const itemsList = items.map(b => <li key={b.id}><BookPreview {...b} /></li>)
-    return items && items.length ? <ul>{itemsList}</ul> : null
+    return (
+      <ItemsList store={booksStore}
+                 linkType="book" />
+    )
   }
 }
 
+export default BooksList;
 
-class BooksList extends Component {
-  static getStores() {
-    return [booksStore]
-  }
 
-  static calculateState(prevState, props) {
-    return booksStore.getState()
-  }
 
-  componentWillMount() {
-    this._token = booksStore.addListener(this.handleLoad)
-  }
 
-  componentWillUnmount() {
-    this._token.remove()
-  }
+// class BooksListUI extends React.Component {
+//   static propTypes = {}
 
-  handleLoad = () => {
-    this.setState(booksStore.getState());
-  }
+//   isntLoaded = (items) => items.some(x => !x)
 
-  render() {
-    return (<BooksListUI {...this.state} />)
-  }
-}
+//   render() {
+//     const {items} = this.props
+//     if (!items || this.isntLoaded(items)) return <div>Loading...</div>
+//     const itemsList = items.map(b => <li key={b.id}><BookPreview {...b} /></li>)
+//     return <ul>{itemsList}</ul>
+//   }
+// }
 
-export default Container.create(BooksList);
+
+// class BooksList extends Component {
+//   static getStores() {
+//     return [booksStore]
+//   }
+
+//   static calculateState(prevState, props) {
+//     return booksStore.getState()
+//   }
+
+//   componentWillMount() {
+//     this._token = booksStore.addListener(this.handleLoad)
+//   }
+
+//   componentWillUnmount() {
+//     this._token.remove()
+//   }
+
+//   handleLoad = () => {
+//     this.setState(booksStore.getState());
+//   }
+
+//   render() {
+//     return (<BooksListUI {...this.state} />)
+//   }
+// }
+
+// export default Container.create(BooksList);

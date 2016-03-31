@@ -6,6 +6,8 @@ import BooksList from './components/books/BooksList'
 import BookDetailed from './components/books/BookDetailed'
 import AuthorsList from './components/authors/AuthorsList'
 import AuthorDetailed from './components/authors/AuthorDetailed'
+import GenresList from './components/genres/GenresList'
+import GenresDetailed from './components/genres/GenreDetailed'
 
 render((
     <Router history={browserHistory}>
@@ -21,6 +23,13 @@ render((
 
         <Route path="/author/:id" 
                component={AuthorDetailed} />
+
+        <Route path="/genres" 
+               component={GenresList} />
+
+        <Route path="/genre/:id" 
+               component={GenresDetailed} />
+
       </Route>
     </Router>
 

@@ -1,9 +1,9 @@
 import React, {PropTypes} from 'react';
 import {Container} from 'flux/utils'
-import {booksStore, authorsStore} from '../../stores'
+import {booksStore, authorsStore, genresStore} from '../../stores'
 import {Link} from 'react-router'
-import AuthorPreview from '../authors/AuthorPreview'
-import {AuthorsListUI} from '../authors/AuthorsList'
+import {ItemsListUI} from '../ItemsList'
+import ItemDetailed from '../ItemDetailed'
 
 class BookDetailedUI extends React.Component {
   static propTypes = {}
@@ -23,9 +23,13 @@ class BookDetailedUI extends React.Component {
         <header>
           <h2>{name}</h2>
           <h5>Authors: 
-              <AuthorsListUI items={authors}/>
+              <ItemsListUI items={authors}
+                           linkType='author'/>
           </h5>
-          <h5>Genres: {genres}</h5>
+          <h5>
+            Genres:
+            <ItemsListUI items={genres}
+                         linkType='genre'/></h5>
         </header>
         <div>
           {description}
@@ -37,38 +41,17 @@ class BookDetailedUI extends React.Component {
 
 
 
-class BookDetailed extends React.Component {
-  static propTypes = {}
-
-  static getStores() {
-    return [booksStore, authorsStore]
-  }
-
-  static calculateState(prevState, props) {
-    return {}
-  }
-
-  componentWillMount() {
-    this._tokens = [
-      booksStore.addListener(this.handleStoreUpdate),
-      authorsStore.addListener(this.handleStoreUpdate)
-    ]
-  }
-
-  componentWillUnmount() {
-    this._tokens.map(t => t.remove())
-  }
+class BookDetailed extends ItemDetailed {
   
-  componentDidMount() {
-    this.handleStoreUpdate()
-  }
-
   handleStoreUpdate = () => {
     if (!booksStore.isCached()) return null
     const book = booksStore.getById(this.props.params.id)
     this.setState(Object.assign({},
       book,
-      {authors: book.getRelated('authors', authorsStore)}
+      {
+        authors: book.getRelated('authors', authorsStore),
+        genres: book.getRelated('genres', genresStore)
+      }
     ))
   }
 
@@ -86,4 +69,4 @@ class BookDetailed extends React.Component {
   }
 }
 
-export default Container.create(BookDetailed, {withProps: true})
+export default BookDetailed

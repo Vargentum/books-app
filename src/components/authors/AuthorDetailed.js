@@ -1,9 +1,11 @@
 import React, {PropTypes} from 'react';
 import {Container} from 'flux/utils'
-import {authorsStore} from '../../stores'
+import {authorsStore, booksStore} from '../../stores'
 import {Link} from 'react-router'
+import {ItemsListUI} from '../ItemsList'
+import ItemDetailed from '../ItemDetailed'
 
-class BookDetailedUI extends React.Component {
+class AuthorDetailedUI extends React.Component {
   static propTypes = {}
 
   render() {
@@ -18,7 +20,10 @@ class BookDetailedUI extends React.Component {
       <article>
         <header>
           <h2>{name}</h2>
-          <h5>Books: {books}</h5>
+          <h5>Books: 
+            <ItemsListUI items={books}
+                         linkType='book'/>
+          </h5>
         </header>
         <div>
           {biography}
@@ -30,39 +35,28 @@ class BookDetailedUI extends React.Component {
 
 
 
-class BookDetailed extends React.Component {
-  static propTypes = {}
-
-  static getStores() {
-    return [authorsStore]
-  }
-
-  static calculateState(prevState, props) {
-    return authorsStore.getById(props.params.id)
-  }
-
-  componentWillMount() {
-    this._token = authorsStore.addListener(this.handleStoreUpdate)
-  }
-
-  componentWillUnmount() {
-    this._token.remove()
-  }
+class AuthorDetailed extends ItemDetailed {
 
   handleStoreUpdate = () => {
-    this.setState(authorsStore.getById(this.props.params.id))
+    if (!authorsStore.isCached()) return null
+    const author = authorsStore.getById(this.props.params.id)
+    console.log(author.getRelated('books', booksStore))
+    this.setState(Object.assign({},
+      author,
+      {
+        books: author.getRelated('books', booksStore)
+      }
+    ))
   }
 
-
   render() {
-
     return (
       <div>
         <Link to="/authors">Back</Link>
-        <BookDetailedUI {...this.state} />
+        <AuthorDetailedUI {...this.state} />
       </div>
     )
   }
 }
 
-export default Container.create(BookDetailed, {withProps: true})
+export default AuthorDetailed
