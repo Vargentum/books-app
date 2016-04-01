@@ -1,48 +1,17 @@
 import React, {Component, PropTypes} from 'react';
-import BookPreview from './BookPreview'
+import {Container} from 'flux/utils'
 import {booksStore} from '../../stores'
-import {loadBooksList} from '../../actions/booksActions'
+import ItemsList from '../ItemsList'
+import BookPreview from './BookPreview'
 
-class BooksList extends Component {
-  static propTypes = {}
-
-  state = {
-    books: booksStore.getAll()
-  }
-
-  componentWillMount() {
-    booksStore.addLoadListener(this.handleLoad)
-  }
-
-  componentDidMount() {
-    if (!booksStore.loading && !booksStore.loaded) loadBooksList()
-  }
-
-  componentWillUnmount() {
-    booksStore.removeLoadListener()
-  }
-
-  handleLoad = () => {
-    this.setState({
-      books: booksStore.getAll()
-    });
-  }
-
-
+class BooksList extends React.Component {
+    
   render() {
-    const {
-      books
-    } = this.state
-
-    if (!books.length) return null
-
-    const booksList = books.map(b => <li key={b.ID}><BookPreview {...b} /></li>)
-
     return (
-      <div>
-        Books List
-        {booksList}
-      </div>
+      <ItemsList store={booksStore}
+                 linkType="books"
+                 PreviewComponent={BookPreview}
+                 children={this.props.children} />
     )
   }
 }

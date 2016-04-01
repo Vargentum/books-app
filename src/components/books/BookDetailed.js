@@ -1,32 +1,40 @@
 import React, {PropTypes} from 'react';
 import {Container} from 'flux/utils'
-import {booksDetailedStore} from '../../stores'
+import {booksStore, authorsStore, genresStore} from '../../stores'
 import {Link} from 'react-router'
+import {ItemsListUI} from '../ItemsList'
+import ItemDetailed from '../ItemDetailed'
+import {BackButton} from '../../utils/ui'
 
-class BookDetailedDump extends React.Component {
+class BookPreviewUI extends React.Component {
   static propTypes = {}
 
   render() {
     const {
-      Author,
-      ID,
-      Title,
-      SubTitle,
-      Description,
-      Publisher,
-      Error
+      id,
+      name,
+      description,
+      authors,
+      genres,
     } = this.props
+
 
     return (
       <article>
         <header>
-          <h2>{Title}</h2>
-          <h4>{SubTitle}</h4>
-          <p>Publisher: {Publisher}</p>
+          <h2>{name}</h2>
         </header>
         <div>
-          {Description}
+          {description}
         </div>
+        <footer>
+          <h5>Authors: </h5>
+          <ItemsListUI items={authors}
+                       linkType='authors'/>
+          <h5>Genres:</h5>
+          <ItemsListUI items={genres}
+                       linkType='genres'/>
+        </footer>
       </article>
     )
   }
@@ -34,41 +42,32 @@ class BookDetailedDump extends React.Component {
 
 
 
-class BookDetailed extends React.Component {
-  static propTypes = {}
-
-  static getStores() {
-    return [booksDetailedStore]
-  }
-
-  static calculateState(prevState, props) {
-    return booksDetailedStore.getState()
-  }
-
-  componentWillMount() {
-    this._token = booksDetailedStore.addListener(this.handleStoreUpdate)
-  }
-
-  componentWillUnmount() {
-    this._token.remove()
-  }
-
+class BookPreview extends ItemDetailed {
+  
   handleStoreUpdate = () => {
-    const status = booksDetailedStore.at('status')
-    if (status !== 'success') return
-    this.setState(booksDetailedStore.at(this.props.params.id))
+    if (!booksStore.isCached()) return null
+    const item = booksStore.getById(this.props.params.id)
+    this.setState(Object.assign({},
+      item,
+      {
+        authors: item.getRelated('authors'),
+        genres: item.getRelated('genres')
+      }
+    ))
   }
-
 
   render() {
-
     return (
       <div>
-        <Link to="/books">Back</Link>
-        <BookDetailedDump {...this.state} />
+        <BackButton to="/books"/>
+        {booksStore.isntLoaded() ?
+          "Loading..."
+          :
+          <BookPreviewUI {...this.state} />  
+        }
       </div>
     )
   }
 }
 
-export default Container.create(BookDetailed, {withProps: true})
+export default BookPreview

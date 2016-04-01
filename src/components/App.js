@@ -1,23 +1,47 @@
 import React, {PropTypes} from 'react';
-import Nav from './nav/Nav'
+import AppNav from './nav/AppNav'
+import {booksStore, authorsStore, genresStore} from '../stores'
+import {loadBooksList, loadAuthorsList, loadGenresList} from '../actions'
+import {Grid, Row, Col} from 'react-bootstrap'
+
+const STORES = [
+  {
+    store: booksStore,
+    init: loadBooksList
+  },
+  {
+    store: authorsStore,
+    init: loadAuthorsList
+  },
+  {
+    store: genresStore,
+    init: loadGenresList
+  }
+]
 
 class App extends React.Component {
   static propTypes = {}
 
-  // state = {}
-  // methodName = () =>
-  //   <div></div>
+  componentDidMount() {
+    this.initStores()
+  }
+
+  initStores() {
+    STORES.forEach(({store, init}) => {
+      if (store.isntLoaded()) init()
+    })
+  }
     
   render() {
-    const {
-
-    } = this.props
-
     return (
-      <div>
-        <Nav />
-        {this.props.children}
-      </div>
+      <Grid fluid={true}>
+        <AppNav />
+        <Row>
+          <Col xs={12}>
+            {this.props.children}
+          </Col>
+        </Row>
+      </Grid>
     )
   }
 }

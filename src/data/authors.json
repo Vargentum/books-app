@@ -1,0 +1,27 @@
+[
+   {
+      "id":1,
+      "name":"Addy Osmani",
+      "biography":"Engineer at Google working on Chrome & @Polymer • Author • Creator of TodoMVC, @Yeoman, Material Design Lite, Critical • Passionate about web tooling • Husband",
+      "books":[
+         1
+      ]
+   },
+   {
+      "id":2,
+      "name":"Stoyan Stefanov",
+      "biography":"Stoyan Stefanov is a Facebook engineer, ex-Yahoo, architect of the YSlow 2.0 performance tool and creator of the smush.it image optimization tool!",
+      "books":[
+         3,
+         4
+      ]
+   },
+   {
+      "id":3,
+      "name":"Douglas Crockford",
+      "biography":"Douglas Crockford is an American computer programmer and entrepreneur who is best known for his ongoing involvement in the development of the JavaScript language, for having popularized the data format JSON (JavaScript Object Notation), and for developing various JavaScript related tools such as JSLint and JSMin.[2] He is currently a senior JavaScript architect at PayPal, and is also a writer and speaker on JavaScript, JSON, and related web technologies",
+      "books":[
+         2
+      ]
+   }
+]

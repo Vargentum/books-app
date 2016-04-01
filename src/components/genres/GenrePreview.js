@@ -4,7 +4,7 @@ import ItemDetailed from '../ItemDetailed'
 import {ItemsListUI} from '../ItemsList'
 import {Link} from 'react-router'
 
-class BookPreviewUI extends React.Component {
+class GenrePreviewUI extends React.Component {
   static propTypes = {}
 
   render() {
@@ -16,7 +16,7 @@ class BookPreviewUI extends React.Component {
 
     return (
       <article>
-        <h4><Link to={`/books/${id}`}>{name}</Link></h4>
+        <h4><Link to={`/genres/${id}`}>{name}</Link></h4>
         <ItemsListUI items={authors}
                      linkType='authors'/>
       </article>
@@ -26,11 +26,11 @@ class BookPreviewUI extends React.Component {
 
 
 
-class BookPreview extends ItemDetailed {
+class GenrePreview extends ItemDetailed {
 
   handleStoreUpdate = () => {
-    if (!booksStore.isCached()) return null
-    const item = booksStore.getById(this.props.id)
+    if (!genresStore.isCached()) return null
+    const item = genresStore.getById(this.props.id)
     this.setState(Object.assign({},
       item,
       {
@@ -42,14 +42,14 @@ class BookPreview extends ItemDetailed {
   render() {
     return (
       <div>
-        {booksStore.isntLoaded() ?
+        {genresStore.isntLoaded() ?
           "Loading..."
           :
-          <BookPreviewUI {...this.state} />  
+          <GenrePreviewUI {...this.state} />  
         }
       </div>
     )
   }
 }
 
-export default BookPreview
+export default GenrePreview
