@@ -2,8 +2,8 @@ import React, {PropTypes} from 'react';
 import {booksStore, authorsStore, genresStore} from '../../stores'
 import ItemDetailed from '../ItemDetailed'
 import {ItemsListUI} from '../ItemsList'
-import {BackButton} from '../../utils/ui'
 import {Link} from 'react-router'
+import {ListGroupItem, DropdownButton, MenuItem} from 'react-bootstrap'
 
 class AuthorPreviewUI extends React.Component {
   static propTypes = {}
@@ -14,14 +14,18 @@ class AuthorPreviewUI extends React.Component {
       name,
       books
     } = this.props
-    console.log(books)
 
     return (
-      <article>
-        <h4><Link to={`/authors/${id}`}>{name}</Link></h4>
+      <DropdownButton id={id + Math.random()} //TODO: add unique id
+                      bsStyle="link" 
+                      noCaret={true}
+                      title={<span>{name}</span>}>
+        <ListGroupItem>
+          <Link to={`/authors/${id}`}>Detailed info</Link>
+        </ListGroupItem>
         <ItemsListUI items={books}
                      linkType='books'/>
-      </article>
+      </DropdownButton>
     )
   }
 }

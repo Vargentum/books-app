@@ -2,7 +2,6 @@ import React, {PropTypes} from 'react';
 import {booksStore, authorsStore, genresStore} from '../../stores'
 import ItemDetailed from '../ItemDetailed'
 import {ItemsListUI} from '../ItemsList'
-import {BackButton} from '../../utils/ui'
 import {Link} from 'react-router'
 
 class GenrePreviewUI extends React.Component {
