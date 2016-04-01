@@ -2,6 +2,7 @@ import React from 'react'
 import {Router, Route, IndexRoute, browserHistory} from 'react-router'
 import {render} from 'react-dom'
 import App from "./components/App"
+import Home from './components/Home'
 import BooksList from './components/books/BooksList'
 import BookDetailed from './components/books/BookDetailed'
 import AuthorsList from './components/authors/AuthorsList'
@@ -12,6 +13,8 @@ import GenresDetailed from './components/genres/GenreDetailed'
 render((
   <Router history={browserHistory}>
     <Route path="/" component={App}>
+      <IndexRoute component={Home} />
+
       <Route path="books" component={BooksList}>
         <Route path=":id" component={BookDetailed} />
       </Route>

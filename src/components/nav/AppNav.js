@@ -13,6 +13,9 @@ class AppNav extends React.Component {
     return (
       <Nav bsStyle="tabs" className="m-b-3">
         <NavItem>
+          <NavLink to="/" onlyActiveOnIndex>Home</NavLink>
+        </NavItem>
+        <NavItem>
           <NavLink to="/books">Books</NavLink>
         </NavItem>
         <NavItem>
