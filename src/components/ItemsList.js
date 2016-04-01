@@ -27,13 +27,16 @@ export class ItemsListUI extends React.Component {
   isntLoaded = (items) => items.some(x => !x)
 
   render() {
-    const {items, linkType} = this.props
+    const {items, linkType, PreviewComponent} = this.props
     if (!items || this.isntLoaded(items)) return <div>Loading...</div>
+
+    const Preview = PreviewComponent || ItemPreview
+    
 
     const itemsList = items.map(item => {
       return (
         <ListGroupItem key={item.id}>
-          <ItemPreview
+          <Preview
             linkType={linkType}
             {...item} />
         </ListGroupItem>
@@ -69,6 +72,7 @@ class ItemsList extends Component {
   render() {
     return this.props.children || 
       <ItemsListUI linkType={this.props.linkType} 
+                   PreviewComponent={this.props.PreviewComponent}
                    {...this.state} />
   }
 }

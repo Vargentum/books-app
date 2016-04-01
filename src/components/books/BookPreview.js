@@ -1,10 +1,9 @@
 import React, {PropTypes} from 'react';
-import {Container} from 'flux/utils'
 import {booksStore, authorsStore, genresStore} from '../../stores'
-import {Link} from 'react-router'
-import {ItemsListUI} from '../ItemsList'
 import ItemDetailed from '../ItemDetailed'
+import {ItemsListUI} from '../ItemsList'
 import {BackButton} from '../../utils/ui'
+import {Link} from 'react-router'
 
 class BookPreviewUI extends React.Component {
   static propTypes = {}
@@ -13,28 +12,14 @@ class BookPreviewUI extends React.Component {
     const {
       id,
       name,
-      description,
-      authors,
-      genres,
+      authors
     } = this.props
-
 
     return (
       <article>
-        <header>
-          <h2>{name}</h2>
-        </header>
-        <div>
-          {description}
-        </div>
-        <footer>
-          <h5>Authors: </h5>
-          <ItemsListUI items={authors}
-                       linkType='authors'/>
-          <h5>Genres:</h5>
-          <ItemsListUI items={genres}
-                       linkType='genres'/>
-        </footer>
+        <h4><Link to={`/books/${id}`}>{name}</Link></h4>
+        <ItemsListUI items={authors}
+                     linkType='authors'/>
       </article>
     )
   }
@@ -43,15 +28,14 @@ class BookPreviewUI extends React.Component {
 
 
 class BookPreview extends ItemDetailed {
-  
+
   handleStoreUpdate = () => {
     if (!booksStore.isCached()) return null
-    const book = booksStore.getById(this.props.params.id)
+    const item = booksStore.getById(this.props.id)
     this.setState(Object.assign({},
-      book,
+      item,
       {
-        authors: book.getRelated('authors', authorsStore),
-        genres: book.getRelated('genres', genresStore)
+        authors: item.getRelated('authors', authorsStore)
       }
     ))
   }
@@ -59,7 +43,6 @@ class BookPreview extends ItemDetailed {
   render() {
     return (
       <div>
-        <BackButton to="/books"/>
         {booksStore.isntLoaded() ?
           "Loading..."
           :
