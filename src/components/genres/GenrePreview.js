@@ -34,7 +34,7 @@ class GenrePreview extends ItemDetailed {
     this.setState(Object.assign({},
       item,
       {
-        authors: item.getRelated('authors', authorsStore)
+        authors: item.getRelated('authors')
       }
     ))
   }

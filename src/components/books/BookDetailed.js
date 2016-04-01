@@ -46,12 +46,12 @@ class BookPreview extends ItemDetailed {
   
   handleStoreUpdate = () => {
     if (!booksStore.isCached()) return null
-    const book = booksStore.getById(this.props.params.id)
+    const item = booksStore.getById(this.props.params.id)
     this.setState(Object.assign({},
-      book,
+      item,
       {
-        authors: book.getRelated('authors', authorsStore),
-        genres: book.getRelated('genres', genresStore)
+        authors: item.getRelated('authors'),
+        genres: item.getRelated('genres')
       }
     ))
   }

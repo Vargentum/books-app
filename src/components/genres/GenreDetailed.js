@@ -61,11 +61,11 @@ class GenresDetailed extends React.Component {
 
   handleStoreUpdate = () => {
     if (!genresStore.isCached()) return null
-    const genre = genresStore.getById(this.props.params.id)
+    const item = genresStore.getById(this.props.params.id)
     this.setState(Object.assign({},
-      genre,
+      item,
       {
-        books: genre.getRelated('books', booksStore)
+        books: item.getRelated('books')
       }
     ))
   }

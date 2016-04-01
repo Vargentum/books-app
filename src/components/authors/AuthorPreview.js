@@ -40,7 +40,7 @@ class AuthorPreview extends ItemDetailed {
     this.setState(Object.assign({},
       item,
       {
-        books: item.getRelated('books', booksStore)
+        books: item.getRelated('books')
       }
     ))
   }

@@ -1,12 +1,12 @@
 class DataModel {
-  constructor(model) {
-    Object.assign(this, model)      
-  }  
+  constructor(model, stores) {
+    Object.assign(this, model, {stores})
+  }
 
-  getRelated(type, store) {
-    if (!this[type]) return []
+  getRelated(type) {
+    if (!this[type] || !this.stores[type]) return []
     return this[type].map(id => {
-      return store.getById(id)
+      return this.stores[type].getById(id)
     })
   }
 

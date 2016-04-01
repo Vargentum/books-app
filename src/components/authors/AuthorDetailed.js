@@ -40,11 +40,11 @@ class AuthorDetailed extends ItemDetailed {
 
   handleStoreUpdate = () => {
     if (!authorsStore.isCached()) return null
-    const author = authorsStore.getById(this.props.params.id)
+    const item = authorsStore.getById(this.props.params.id)
     this.setState(Object.assign({},
-      author,
+      item,
       {
-        books: author.getRelated('books', booksStore)
+        books: item.getRelated('books')
       }
     ))
   }

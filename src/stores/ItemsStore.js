@@ -28,7 +28,7 @@ export default class ItemsStore extends ReduceStore {
 
       case this._itemType + LSC:
         return Object.assign({}, state, {
-          items: data.map(d => new DataModel(d)),
+          items: data.map(d => new DataModel(d, this._stores)),
           status: LSC,
           dataLoaded: true
         })
